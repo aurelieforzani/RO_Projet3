@@ -56,14 +56,11 @@ end
   end
 
 % Si on détecte une stratégie sbire adverse, on se défend comme on peut ...
-% if(numpart >= 2 && sum(ty(1:numpart-1))/(numpart-2) >= 2.5)
-%     x = 0;
-%     return
-% end
- if(numpart >= 2 && ty(numpart-1) >= 2.5)
+ if(numpart >= 2 && sum(ty(1:numpart-1))/(numpart-1) >= 2.5)
      x = 0;
      return
  end
+
 
 
 if (numpart == 1)
