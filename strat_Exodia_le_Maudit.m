@@ -43,26 +43,29 @@ end
 
 
 % % Si on a détecté la stratégie affine, on joue stackelberg
- if ((ty(1) == 0) & numpart>2 &(ty(numpart-1) == (3-tx(numpart-2))/2))
+ if ((ty(1) == 0) && numpart >= 3 && (ty(numpart-1) == (3-tx(numpart-2))/2))
      x = strat_stackelberg(numpart,tx,ty,gx,gy);
      return
  end
  
 % % Si on a détecté la stratégie stackelberg, on joue anti-stackelberg
-  if ((ty(1) == 0) & numpart>2 & (ty(numpart-1) == 2*(3-tx(numpart-2))/3))
+  if ((ty(1) == 0) && numpart >= 3 && (ty(numpart-1) == 2*(3-tx(numpart-2))/3))
       b = ty(numpart-1)/(3-tx(numpart-2));
       x = 1/(2-b) * (3-ty(numpart-1));
       return
   end
 
 % Si on détecte une stratégie sbire adverse, on se défend comme on peut ...
- if(numpart >= 2 && sum(ty(1:numpart-1))/(numpart-1) >= 2.5)
+% (au deuxième coup on a envoyé le signal de toute façon)
+ if(numpart >= 3 && sum(ty(1:numpart-1))/(numpart-1) >= 2.5)
+ if(numpart >= 3 && all(ty(1:numpart-1) >= 2.5))
      x = 0;
      return
  end
+% On a fini les particulartiés ...
 
 
-
+%% On peut passer à l'algorithme général !
 if (numpart == 1)
     % par defaut, on coopere
 	x= 0.75;
