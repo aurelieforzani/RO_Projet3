@@ -57,7 +57,6 @@ end
 
 % Si on détecte une stratégie sbire adverse, on se défend comme on peut ...
 % (au deuxième coup on a envoyé le signal de toute façon)
- if(numpart >= 3 && sum(ty(1:numpart-1))/(numpart-1) >= 2.5)
  if(numpart >= 3 && all(ty(1:numpart-1) >= 2.5))
      x = 0;
      return
