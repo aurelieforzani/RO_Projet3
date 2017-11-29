@@ -42,14 +42,28 @@ if(numpart > 3 && all(ty(3:numpart-1)) == 0)
 end
 
 
-% % Si on a détecté la stratégie affine, on joue stackelberg
- if ((ty(1) == 0) && numpart >= 3 && (ty(numpart-1) == (3-tx(numpart-2))/2))
+% % Si on a détecté la stratégie non cooperative, on joue stackelberg
+noncoop = true;
+for i = 3:numpart
+    if (ty(i-1) ~= (3-tx(i-2))/2)
+        noncoop = false;
+    end
+end
+
+ if ((ty(1) == 0) && numpart >= 3 && noncoop)
      x = strat_stackelberg(numpart,tx,ty,gx,gy);
      return
  end
  
 % % Si on a détecté la stratégie stackelberg, on joue anti-stackelberg
-  if ((ty(1) == 0) && numpart >= 3 && (ty(numpart-1) == 2*(3-tx(numpart-2))/3))
+stack = true;
+for i = 3:numpart
+    if (ty(i-1) ~= 2*(3-tx(i-2))/3)
+        stack = false;
+    end
+end
+
+  if ((ty(1) == 0) && numpart >= 3 && stack)
       b = ty(numpart-1)/(3-tx(numpart-2));
       x = 1/(2-b) * (3-ty(numpart-1));
       return
